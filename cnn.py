@@ -24,7 +24,7 @@ while True:
     ret, img = cap.read()
 
     if ret:
-        pred = []
+        digit_img = []
         for idx, d in enumerate(digit_areas):
             tmp = img[d[1]:d[3], d[0]:d[2]]
             tmp = cv2.cvtColor(tmp, cv2.COLOR_BGR2GRAY)
@@ -38,11 +38,11 @@ while True:
 
             nn_tmp = torch.tensor(tmp, dtype=torch.float32)
             nn_tmp = torch.div(nn_tmp, 255.0)
-            nn_tmp = nn_tmp.unsqueeze(0).unsqueeze(0)
+            digit_img.append(nn_tmp.unsqueeze(0))
 
-            r = model(nn_tmp)
-            r = torch.argmax(r)
-            pred.append(r.item())
+        digit_img = torch.stack(digit_img)
+        r = model(digit_img)
+        pred = torch.argmax(r, dim=1)
 
         zoom_img = img[8:20, 0:120, :]
 
