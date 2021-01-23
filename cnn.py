@@ -1,10 +1,5 @@
 import cv2
-import numpy as np
-
 import torch
-import torchvision
-
-from PIL import Image
 
 from model import Net
 
