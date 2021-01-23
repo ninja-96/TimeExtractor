@@ -26,7 +26,7 @@ while True:
             tmp = cv2.cvtColor(tmp, cv2.COLOR_BGR2GRAY)
 
             tmp = cv2.resize(tmp, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR)
-            tmp = cv2.adaptiveThreshold(tmp, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+            tmp = cv2.adaptiveThreshold(tmp, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 2)
 
             tmp = np.true_divide(tmp, 255.0)
             tmp = tmp.flatten().reshape(1, -1)
@@ -40,7 +40,7 @@ while True:
 
         cv2.imshow('Frame', img)
         cv2.imshow('Zoom', zoom_img)
-        k = cv2.waitKey(1)
+        k = cv2.waitKey(30)
 
         if k == 113:
             break
