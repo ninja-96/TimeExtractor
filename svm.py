@@ -29,10 +29,11 @@ while True:
             tmp = cv2.resize(tmp, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR)
             tmp = cv2.adaptiveThreshold(tmp, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 2)
 
-            # if trigger:
-            #     tmp = cv2.bitwise_not(tmp)
+            trigger = cv2.adaptiveThreshold(tmp, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+            if trigger[0, 0] == 0:
+                tmp = cv2.bitwise_not(tmp)
 
-            cv2.imshow(f'{idx}', tmp)
+            # cv2.imshow(f'{idx}', tmp)
 
             tmp = np.true_divide(tmp, 255.0)
             tmp = tmp.flatten().reshape(1, -1)
